@@ -1,0 +1,137 @@
+.search {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 3px;
+}
+
+.table.wykaz-dokumentow a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.table.wykaz-dokumentow a:hover {
+    text-decoration: underline;
+}
+
+
+.status.aktualny {
+    color: var(--bs-dark);
+}
+
+.status.nieaktualny {
+    color: var(--bs-danger)
+}
+
+.status.zarchiwizowany {
+    background-color: #dadada;
+}
+
+.status {
+    color: #a900ff;
+}
+#akcje {
+    font-size: .95rem;
+    line-height: 1.35;
+}
+
+#akcje select {
+    padding: .375rem 2.25rem .375rem .75rem;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.35;
+    vertical-align: middle;
+    color: #212529;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#filters-wrapper {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: .5rem;
+}
+
+.filters {
+    display: block;
+}
+
+
+
+@media screen and (min-width: 576px) {
+    .filters {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto;
+        grid-template-areas: "inwestycja inwestycja branza branza status status"
+        "data_dodania data_dodania data_dodania data_dokumentu data_dokumentu data_dokumentu";
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .filters {
+        display: grid;
+        grid-template-areas: " inwestycja branza status data_dodania data_dokumentu";
+        margin-top: 1rem;
+    }
+}
+
+
+.filter {
+    border-left: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
+.filter>div.overflow-y {
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.filter>div.overflow-y::-webkit-scrollbar {
+    display: none;
+}
+
+.filter:first-child {
+    border: none;
+}
+
+#filter-inwestycja {
+    grid-area: inwestycja;
+}
+
+#filter-branza {
+    grid-area: branza;
+}
+
+#filter-status {
+    grid-area: status;
+}
+
+#filter-data_dodania {
+    grid-area: data_dodania;
+}
+
+#filter-data_dokumentu {
+    grid-area: data_dokumentu;
+}
+
+.toast-container {
+    position: fixed;
+    width: 300px;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+}
+
+.toast {
+    width: 100%;
+}

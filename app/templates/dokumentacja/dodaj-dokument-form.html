@@ -1,0 +1,84 @@
+<!-- Plik -->
+{% with field=form.file %}
+<div class="mt-2 form-row">
+    <input type="file" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}" required>
+</div>
+{% endwith %}
+<!-- Inwestycja -->
+{% with field=form.inwestycja %}
+<div class="mt-2 form-row">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <select name="{{ field.name }}" id="id_inwestycja" class="form-select  {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}" required>
+        {% for item in field %}
+            {{item}}
+        {% endfor %}
+        </select>
+</div>
+{% endwith %}
+<!-- Branża -->
+{% with field=form.branza %}
+<div class="mt-2 form-row">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-select  {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}" required>
+        {% for item in field %}
+            {{item}}
+        {% endfor %}
+        </select>
+</div>
+{% endwith %}
+<!-- Oznaczenie -->
+{% with field=form.oznaczenie %}
+<div class="mt-2">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <input name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control  {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}" value="{{ field.value|default:'' }}" required/>
+</div>
+{% endwith %}
+<!-- Nazwa -->
+{% with field=form.nazwa %}
+<div class="mt-2">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <input name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control  {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}" value="{{ field.value|default:'' }}" required/>
+</div>
+{% endwith %}
+<!-- Opis -->
+{% with field=form.opis %}
+<div class="mt-2">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <textarea name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control  {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}" value="{{ field.value }}"></textarea>
+</div>
+{% endwith %}
+<!-- Data rysunku -->
+{% with field=form.data_dokumentu %}
+<div class="mt-2">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <input type="date" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control  {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}" value="{{ field.value }}" required/>
+</div>
+{% endwith %}
+<!-- Data dodania -->
+{% with field=form.data_dodania %}
+<div class="mt-2">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <input type="date" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" value="{{ field.value }}" readonly/>
+</div>
+{% endwith %}
+<!-- Rysunek nadrzędny -->
+{% with field=form.dokument_nadrzedny %}
+<div class="mt-2 form-row">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-select  {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}">
+        {% for item in field %}
+            {{item}}
+        {% endfor %}    
+        </select>
+</div>
+{% endwith %}
+<!-- Komentarz -->
+{% with field=form.komentarz %}
+<div class="mt-2">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <textarea name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control  {% if field.errors %}is-invalid{% elif form.errors %}is-valid{% endif %}" value="{{ field.value }}"></textarea>
+</div>
+<!-- Dodatkowe pola -->
+<input type="hidden" name="qr_x" id="qr_x" />
+<input type="hidden" name="qr_y" id="qr_y" />
+{% endwith %}

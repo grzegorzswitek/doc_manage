@@ -1,0 +1,65 @@
+{
+  "_from": "qcode-decoder",
+  "_id": "qcode-decoder@0.1.0",
+  "_inBundle": false,
+  "_integrity": "sha1-A4cvY3oGvWPHlVm5cXnu0Mmtt54=",
+  "_location": "/qcode-decoder",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "qcode-decoder",
+    "name": "qcode-decoder",
+    "escapedName": "qcode-decoder",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/qcode-decoder/-/qcode-decoder-0.1.0.tgz",
+  "_shasum": "03872f637a06bd63c79559b97179eed0c9adb79e",
+  "_spec": "qcode-decoder",
+  "_where": "D:\\Users\\gswitek\\PycharmProjects\\BUDLEX_panel_zarzadzania_projektami\\demo\\node_test",
+  "author": {
+    "name": "Ciro S. Costa",
+    "email": "ciro9758@gmail.com",
+    "url": "http://cirocosta.github.io/"
+  },
+  "bugs": {
+    "url": "https://github.com/cirocosta/qcode-decoder/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Decodes QRCode in the Browser and Node",
+  "devDependencies": {
+    "bower": "^1.3.3",
+    "gulp": "^3.6.2",
+    "gulp-concat": "^2.2.0",
+    "gulp-footer": "^1.0.5",
+    "gulp-header": "^1.0.5",
+    "gulp-jshint": "^1.6.1",
+    "gulp-sourcemaps": "^1.1.5",
+    "gulp-uglify": "^0.3.0",
+    "zuul": "^1.10.2"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "homepage": "https://github.com/cirocosta/qcode-decoder",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "qcode-decoder",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cirocosta/qcode-decoder.git"
+  },
+  "scripts": {
+    "test": "zuul -- tests/test-qcode-decoder.js",
+    "test-local": "zuul --local 8080 --ui mocha-bdd -- tests/test-qcode-decoder.js"
+  },
+  "version": "0.1.0"
+}

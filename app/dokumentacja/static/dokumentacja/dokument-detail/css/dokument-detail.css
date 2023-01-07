@@ -1,0 +1,25 @@
+.submit-row {
+    padding: 12px 14px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.submit-row > a.btn {
+    margin-bottom: 5px;
+}
+
+.status.aktualny {
+    color: var(--bs-success);
+}
+
+.status.nieaktualny {
+    color: var(--bs-danger)
+}
+
+.status.zarchiwizowany {
+    background-color: #dadada;
+}
+
+.status {
+    color: #a900ff;
+}

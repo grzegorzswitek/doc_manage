@@ -1,0 +1,45 @@
+.page-wrapper {
+    display: block
+}
+
+.left-menu {
+    min-height: 100vh;
+    width: 200px;
+    margin-left: -.75rem;
+    background-color: var(--bg-nav_sidebar);
+    float: left;
+}
+
+.content {
+    margin-left: 200px;
+}
+
+.sidebar-heading {
+    padding: 1rem .5rem;
+    font-size: 1.2rem;
+}
+
+.sidebar-heading .form-select {
+    font-size: 1.2rem;
+}
+
+.list-group-item {
+    background-color: inherit;
+}
+
+table.uprawnienia {
+    text-align: center;
+    vertical-align: middle;
+}
+
+td, th {
+    padding: 10px;
+}
+
+col.nazwa-funkcja {
+    
+}
+
+col.uprawnienia td {
+    width: 50px;
+}

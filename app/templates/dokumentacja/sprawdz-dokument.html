@@ -1,0 +1,103 @@
+{% extends 'base.html' %} {% block title %} Sprawdź dokument{% endblock title %}
+
+{% load static %}
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'dokumentacja/sprawdz-dokument/css/sprawdz-dokument.css' %}">
+{% endblock extrastyle %}
+{% block extrahead %}
+    <script src="{% static 'modules/qcode-decoder/build/qcode-decoder.min.js' %}"></script>
+    <script src="{% static 'dokumentacja/sprawdz-dokument/js/sprawdz-dokument-ajax.js' %}"></script>
+{% endblock extrahead %}
+
+
+
+
+{% block content %}
+
+<div class="w-100 mt-3"></div>
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-4">
+        <div id="search-container" class="">
+            <div id="search-toogle-container" class="row mt-2">
+                <div class="col text-center">
+                    <input type="radio" class="btn-check" name="options" id="set-video" autocomplete="off">
+                    <label class="btn btn-secondary btn-lg" for="set-video"><i class="bi bi-camera-video"></i></label>
+                </div>
+                
+                <div class="col text-center">
+                    <input type="radio" class="btn-check" name="options" id="set-file" autocomplete="off" checked>
+                    <label class="btn btn-secondary btn-lg" for="set-file"><i class="bi bi-folder2-open"></i></label>
+                </div>
+            </div>
+            <div id="document-source-container" class="mt-2">
+                <div id="document-source-video">
+                    <div id="video-select-container" class="w-100 my-2">
+                        <label class="mb-1">Wybierz kamerę</label>
+                        <select name="camera" id="video-select" class="form-select"></select>
+                    </div>
+                    <video id="v" autoplay ></video>
+                    <div id="video-help" style="display: none;">
+                        <input class="btn btn-outline-primary" type="button" value="Odśwież">
+                    </div>
+                </div>
+                <div id="document-source-file">
+                    <input id="select-file-btn" type="file" accept="application/pdf" style="display:none;">
+                    <label class="text-center" for="select-file-btn">
+                        <div id="select-file-label">
+                            <i class="bi bi-cloud-arrow-up" style="font-size:80px;"></i>
+                            <div class="w-100"> </div>
+                            Wybierz plik lub przeciągnij i upuść
+                        </div>
+                        <div id="render-spinner" style="display:none">
+                            <div class="spinner-border m-4" style="width: 68px; height: 68px;"></div>
+                            <div class="w-100"> </div>
+                            Trwa weryfikacja dokumentu...
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 col-md-6 col-lg-8 ">
+        <div id="result-container" class="">
+            <div class="w-100" id="result-help"></div>
+            <table class="table">
+                <tr>
+                    <td>Inwestycja:</td><td id="inwestycja-val"></td>
+                </tr>
+                <tr>
+                    <td>Branża:</td><td id="branza-val"></td>
+                </tr>
+                <tr>
+                    <td>Oznaczenie:</td><td id="oznaczenie-val"></td>
+                </tr>
+                <tr>
+                    <td>Nazwa:</td><td id="nazwa-val"></td>
+                </tr>
+                <tr>
+                    <td>Status:</td><td id="status-val"></td>
+                </tr>
+            </table>
+            <div class="w-100 mt-2" style="text-align:right;">
+                <a class="btn btn-primary" id="result-button-edit" href="#" role="button">Edytuj</a>
+                <a class="btn btn-success" id="result-button-details" href="#" role="button">Szczegóły</a>
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+
+
+<canvas id="video-canvas" style="display: none; width: 800px; height: 600px;" width="800" height="600"></canvas>
+
+<script src="{% static 'dokumentacja/sprawdz-dokument/js/video-input.js' %}"></script>
+<script src="{% static 'dokumentacja/sprawdz-dokument/js/sprawdz-dokument.js' %}"></script>
+
+<script>
+    var url_ajax_get_document_by_code = "{% url 'dokumentacja:ajax_get_document_by_code' %}" 
+    var url_ajax_search_qrcode_by_image = "{% url 'dokumentacja:ajax_search_qrcode_by_image' %}" 
+</script>
+
+{% endblock content %}

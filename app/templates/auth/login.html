@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "rysunki/css/login.css" %}">
+{{ form.media }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+{% if form.errors.items|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main" class="text-center mt-5">
+
+{% if user.is_authenticated %}
+<p class="text-danger">
+
+    Jesteś zalogowany jako
+      {% if user.first_name and user.last_name %}{{user.first_name}} {{user.last_name}}{% else %}{{user.email}}{% endif %},
+    ale nie masz dostępu do tej witryny. <br> Czy chcesz zalogować się na inne konto?
+    
+</p>
+{% endif %}
+<div class="border rounded m-auto p-3" style="max-width:500px;">
+  <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+    <div class="form-row mb-3">
+      {{ form.username.errors }}
+      <input class="form-control" type="text" name="username" placeholder="Nazwa użytkownika" required />
+    </div>
+    <div class="form-row mb-3">
+      {{ form.password.errors }}
+      <input class="form-control" type="password" name="password" placeholder="Hasło" required />
+      <input type="hidden" name="next" value="{{ next }}">
+    </div>
+    {% url 'admin_password_reset' as password_reset_url %}
+    {% if password_reset_url %}
+    <div class="password-reset-link">
+      <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
+    </div>
+    {% endif %}
+    <div class="submit-row">
+      <input class="form-control btn-primary" type="submit" value="Zaloguj">
+    </div>
+  </form>
+</div>
+
+</div>
+{% endblock %}

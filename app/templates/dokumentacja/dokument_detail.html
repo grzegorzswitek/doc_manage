@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block title %} Szczegóły dokumentu {% endblock title %}
+
+
+{% block content %}
+    
+<div class="col-6 mx-auto border rounded-3 p-3 mt-3 bg-white">
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Inwestycja</th>
+            <td>{{dokument.inwestycja}}</td>
+        </tr>
+        <tr>
+            <th>Branza</th>
+            <td>{{dokument.branza}}</td>
+        </tr>
+        <tr>
+            <th>Oznaczenie</th>
+            <td>{{dokument.oznaczenie}}</td>
+        </tr>
+        <tr>
+            <th>Nazwa</th>
+            <td>{{dokument.nazwa}}</td>
+        </tr>
+        <tr>
+            <th>Opis</th>
+            <td>{{dokument.opis}}</td>
+        </tr>
+        <tr>
+            <th>Data dokumentu</th>
+            <td>{{dokument.data_dokumentu}}</td>
+        </tr>
+        <tr>
+            <th>Data dodania</th>
+            <td>{{dokument.data_dodania}}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{dokument.status}}</td>
+        </tr>
+        <tr>
+            <th>Komentarz</th>
+            <td>{{dokument.komentarz}}</td>
+        </tr>
+        
+        {% if dokument.dokument_nadrzedny %}
+            
+            <tr>
+                <th>Dokument nadrzędny</th>
+                <td><a href="{{dokument.dokument_nadrzedny.get_absolute_url}}">{{dokument.dokument_nadrzedny}}</a></td>
+            </tr>
+
+        {% endif %}
+        
+        {% if dokument.dokumenty_podrzedne %}
+
+            <tr>
+                <th>Dokumenty podrzędne</th>
+                <td>
+
+                    {% for dok_podrz in dokument.dokumenty_podrzedne %}
+                        <li><a href="{{dok_podrz.get_absolute_url}}">{{dok_podrz}}</a>{{dok_podrz.get_absolute_path}}</li>
+                    {% endfor %}
+
+                </td>
+
+            </tr>
+        {% endif %}
+            
+    </tbody>
+</table>
+<center>
+
+<a href="{% url 'dokumentacja:edytuj_dokument' dokument.pk %}" class="btn btn-secondary">Edytuj</a>
+<a href="{% url 'dokumentacja:zastap_dokument' dokument.pk %}" class="btn btn-secondary">Zastąp</a>
+<a href="{{dokument.file.url}}" target="_blank" download="{{dokument.nazwa}}.pdf" class="btn btn-secondary">Pobierz</a>
+<a href="{{dokument.file.url}}" target="_blank" class="btn btn-secondary">Otwórz</a>
+</center>
+</div>
+
+
+{% endblock content %}

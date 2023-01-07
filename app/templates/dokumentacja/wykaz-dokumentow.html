@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block title %} Wykaz dokumentów {% endblock title %}
+{% load static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'dokumentacja/wykaz-dokumentow/css/wykaz-dokumentow.css' %}">
+{% endblock extrastyle %}
+
+{% block extrahead %}
+<script src="{% static 'dokumentacja/wykaz-dokumentow/js/wykaz-dokumentow.js' %}"></script>
+{% endblock extrahead %}
+
+
+{% block content %}
+
+<div class="my-2 search">
+    <input type="search" name="" id="search" class="form-control" placeholder="Wyszukaj...">
+</div>
+<div id="filters-wrapper" class="my-2">
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <button class="btn btn-secondary"  id="filters-toggle-button">
+                Filtry <i class="bi bi-chevron-double-down"></i>
+            </button>
+            <div class="form-check form-switch d-inline-block ms-3" id="filter-nieaktualne" data-name="nieaktualne">
+                <input class="form-check-input" type="checkbox" id="nieaktualne-check" name="nieaktualne" value="1"
+                    {% if filters_user.nieaktualne == '1' %}
+                        checked
+                    {% endif %}
+                >
+                <label class="form-check-label" for="nieaktualne-check">Nieaktualne</label>
+            </div>
+            <div class="form-check form-switch d-inline-block ms-3" id="filter-zarchiwizowane" data-name="zarchiwizowane">
+                <input class="form-check-input" type="checkbox" id="zarchiwizowane-check" name="zarchiwizowane" value="1"
+                {% if filters_user.zarchiwizowane == '1' %}
+                    checked
+                {% endif %}
+            >
+                <label class="form-check-label" for="zarchiwizowane-check">Zarchiwizowane</label>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="float-end">
+                <div class="d-inline-block">
+                    <input type="button" id="filter-zastosuj" value="Zastosuj" class="btn btn-secondary">
+                </div>
+                <div class="d-inline-block">
+                    <a href="?" class="btn btn-warning">Wyczyść</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="filters" class="filters" style="display: none;">
+        <div class="filter" id="filter-inwestycja" data-name="inwestycja">
+            <strong>Inwestycja</strong>
+            <div class="overflow-y">
+                {% for inwestycja in filter_table.inwestycja %}    
+                    <div>
+                        <input type="checkbox" name="" id="filter-inwestycja-{{inwestycja.pk}}" value="{{inwestycja.pk}}" 
+                            {% if inwestycja in filters_user.inwestycja__in %}
+                                checked
+                            {% endif %}
+                        >
+                        <label for="filter-inwestycja-{{inwestycja.pk}}">{{inwestycja.nazwa}}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="filter" id="filter-branza" data-name="branza">
+            <strong>Branża</strong>
+            <div class="overflow-y">
+                {% for branza in filter_table.branza %}    
+                    <div>
+                        <input type="checkbox" name="" id="filter-branza-{{branza.pk}}" value="{{branza.pk}}" 
+                            {% if branza in filters_user.branza__in %}
+                                checked
+                            {% endif %}
+                        >
+                        <label for="filter-branza-{{branza.pk}}">{{branza.nazwa}}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="filter" id="filter-status" data-name="status"> 
+            <strong>Status</strong>
+            <div class="overflow-y">
+                {% for status in filter_table.status %}    
+                    <div>
+                        <input type="checkbox" name="" id="filter-status-{{status.pk}}" value="{{status.pk}}"
+                            {% if status in filters_user.status__in %}
+                            checked
+                            {% endif %}
+                        >
+                        <label for="filter-status-{{status.pk}}">{{status.nazwa}}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="filter" id="filter-data_dokumentu" data-name="data_dokumentu">
+            <strong>Data dokumentu</strong>
+            <div>
+                <label for="filter-data_dokumentu-od">Od</label>
+                <input type="date" name="od" id="filter-data_dokumentu-od" class="form-control" value="{{filters_user.data_dokumentu.od|date:'Y-m-d'}}"
+                min="{{filters_user.data_dokumentu.min|date:'Y-m-d'}}" max="{{filters_user.data_dokumentu.max|date:'Y-m-d'}}">
+            </div>
+            <div>
+                <label for="filter-data_dokumentu-do">Do</label>
+                <input type="date" name="do" id="filter-data_dokumentu-do" class="form-control" value="{{filters_user.data_dokumentu.do|date:'Y-m-d'}}"
+                min="{{filters_user.data_dokumentu.min|date:'Y-m-d'}}" max="{{filters_user.data_dokumentu.max|date:'Y-m-d'}}">
+            </div>
+        </div>
+        <div class="filter" id="filter-data_dodania" data-name="data_dodania">
+            <strong>Data dodania</strong>
+            <div>
+                <label for="filter-data_dodania-od">Od</label>
+                <input type="date" name="od" id="filter-data_dodania-od" class="form-control" value="{{filters_user.data_dodania.od|date:'Y-m-d'}}"
+                min="{{filters_user.data_dodania.min|date:'Y-m-d'}}" max="{{filters_user.data_dodania.max|date:'Y-m-d'}}">
+            </div>
+            <div>
+                <label for="filter-data_dodania-do">Do</label>
+                <input type="date" name="do" id="filter-data_dodania-do" class="form-control" value="{{filters_user.data_dodania.do|date:'Y-m-d'}}"
+                min="{{filters_user.data_dodania.min|date:'Y-m-d'}}" max="{{filters_user.data_dodania.max|date:'Y-m-d'}}">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-5">
+        <div id="akcje">
+            <label for="select-akcje">Akcje:</label>
+            <select name="akcje" id="select-akcje">
+                <option value="">--------</option>
+                {% for status in statusy %}    
+                <option value="{{status.pk}}" data-action="update_status" data-name="status" data-href="{% url 'dokumentacja:dokument_action' %}">Status → {{status.nazwa}}</option>
+                {% endfor %}   
+                <option value="1" data-action="update_zarchiwizowany" data-name="zarchiwizowany" data-href="{% url 'dokumentacja:dokument_action' %}">Archiwizuj</option>
+                {% if filters_user.zarchiwizowane == '1' %}
+                    <option value="0" data-action="update_zarchiwizowany" data-name="zarchiwizowany" data-href="{% url 'dokumentacja:dokument_action' %}">Przywróć z archiwum</option>
+                {% endif %}  
+                <option disabled>────────────────────</option>
+                <option disabled value="">Pobierz link do listy</option>          
+                <option disabled value="">Pobierz link do plików</option>       
+                <option disabled>────────────────────</option>
+                <option value="" data-action="download_files" data-name="" data-href="{% url 'dokumentacja:dokument_action' %}">Pobierz pliki</option>  
+
+            </select>
+            <input type="submit" value="Wykonaj" class="btn btn-secondary btn-sm">
+        </div>
+    </div>
+    <div class="col-12 col-md-7">
+        <div class="float-end">
+            <span><strong>Legenda: </strong></span>
+            <span class="status aktualny">Aktualny</span> |
+            <span class="status nieaktualny">Nieaktualny</span> |
+            <span class="status wtrakciezmian">W trakcie zmian</span> |
+            <span class="status aktualny zarchiwizowany">Zarchiwizowany</span>
+        </div>
+    </div>
+</div>
+
+    <table class="table wykaz-dokumentow mt-2">
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="" id="table-select-all" class=""></th>
+                <th>Inwestycja</th>
+                <th>Branża</th>
+                <th>Oznaczenie</th>
+                <th></th>
+                <th>Nazwa <i class="bi bi-arrow-up-right-square-fill"></i></th>
+                <th>Plik</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dokument in dokumenty %}
+            <tr class="status {{dokument.status|lower|cut:' '}} {% if dokument.zarchiwizowany %} zarchiwizowany {% endif %}">
+                <td><input type="checkbox" name="action" id="" data-pk="{{dokument.pk}}"></td>
+                <td> {{dokument.inwestycja}} </td>
+                <td> {{dokument.branza}} </td>
+                <td> {{dokument.oznaczenie}} </td>
+                <td style="text-align: right;">{% if dokument.dokumenty_podrzedne %}<i class="bi bi-stack"></i>{% endif %}</td>
+                <td> <a href="{{ dokument.get_absolute_url }}"> {{dokument.nazwa}} </a> </td>
+                <td> <a href="{{dokument.file.url}}" target="_blank"><i class="bi bi-file-earmark-text-fill"></i></a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# Powiadomienia popup #}
+
+    <div class="toast-container">
+
+    </div>
+<div class="toast pattern" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+    <strong class="me-auto">Budlex</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+    </div>
+</div>
+
+
+
+{% endblock content %}

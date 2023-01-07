@@ -1,0 +1,34 @@
+version: "3.3"
+
+services:
+  web:
+    build: ./app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app/:/usr/src/app/
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+    networks:
+      - db_net
+      
+  db:
+    image: postgres:14
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - db_net
+    
+volumes:
+  db_data:
+  
+      
+networks:
+  db_net:

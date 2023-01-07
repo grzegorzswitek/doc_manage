@@ -1,0 +1,37 @@
+{% extends "base.html" %} 
+{% load static %} {% block title %} Dodaj dokument {% endblock %}{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'dokumentacja/dodaj-dokument/css/dodaj-dokument.css' %}"> {% endblock %} {% block extrahead %}
+<script src="{% static 'modules/pdfjs/pdf.js' %}"></script>
+<script src="{% static 'modules/pdfjs/pdf.worker.js' %}"></script>
+{% endblock %} {% block container_class %} container-fluid {% endblock %} {% block content %} {% if error_message %}
+<p><strong>{{ error_message }}</strong></p>{% endif %}
+<div class="w-100 mt-3"></div>
+
+<div class="row">
+  <div class="col-12 col-xl-4">
+    <form method="post" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% include 'dokumentacja/dodaj-dokument-form.html' %}
+      <input type="submit" class="btn btn-primary w-100 mt-3" value="Dodaj" />
+    </form>
+  </div>
+
+  <div class="col-12 mt-2 col-xl-8 mt-xl-0">
+    <div id="pdf_wrapper">
+      <img id="sample_qr" src="{% static 'dokumentacja/dodaj-dokument/img/qr.png' %}">
+      <canvas id="pdf_render"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="w-100 mt-3"></div>
+
+<script>
+  var url_ajax_rysunki_branzy = "{% url 'dokumentacja:ajax_dokumenty_branzy_inwestycji' %}"
+</script>
+<script src="{% static 'dokumentacja/dodaj-dokument/js/rysunki-nadrzedne.js' %}"></script>
+<script src="{% static 'dokumentacja/dodaj-dokument/js/dodaj-dokument.js' %}"></script>
+{% endblock content %}
+</body>
+
+</html>

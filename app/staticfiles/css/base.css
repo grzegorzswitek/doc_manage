@@ -1,0 +1,14 @@
+:root {
+    --bg-color: #f8f9fa;
+    --bg-nav_topbar: #bfff9a;
+    --bg-nav_sidebar: #f0f0f0;
+    --bg-container: #eee;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+.hidden {
+    display: none;
+}

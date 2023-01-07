@@ -1,0 +1,25 @@
+#search-container, #result-container {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: .5rem;
+}
+
+#document-source-file label {
+    width: 100%;
+    min-height: 200px;
+    background-color: #ddd;
+    color: #333;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+}
+
+#document-source-video video {
+    width: 100%; 
+}
+
+#result-container table td:nth-child(1) {
+    font-weight: 600;
+}
